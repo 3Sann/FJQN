@@ -1,8 +1,8 @@
 % The set of parameters
 % The number of resources
-N = 18;
+N = 6;
 % The arrival rates of order batches
-namuta = 60/3600; %每小时到达的订单
+namuta = 64/3600; %每小时到达的订单
 mu2 = 10;
 
 % the computation of B00
