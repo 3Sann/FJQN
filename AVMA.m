@@ -40,7 +40,7 @@ function TH = AVMA(K)
         end
         TH = k / sum(vs .* cell2mat(ET));
         for i = 1:sta_inner
-            b_up = min(rs(i) - 1, k); %求b的上线
+            b_up = min(rs(i) - 1, k); 
             P{index}{i}{1} = 0;
             if b_up ~= 0                 
                  if b_up == 1
