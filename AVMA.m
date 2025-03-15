@@ -1,6 +1,6 @@
-function TH = AVMA(K)
+function TH = AVMA(K,P)
     % the number of servers in service station
-    rs = [K,6];
+    rs = [K,P];
     % the arriveal rate of service station
     vs = [1, 1];
     % the first moment, second moment of the service station
