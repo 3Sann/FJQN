@@ -1,6 +1,10 @@
+% the arrival rate of order batches
 lamda = 60/3600; 
+% the number of zones
 N = 2;
+% the number of robots
 K = 6;
+% the number of pickers
 P = 6;
 
 temp = 1;
