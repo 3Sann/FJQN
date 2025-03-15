@@ -3,6 +3,7 @@
 N = 6;
 % The arrival rates of order batches
 lamda = 60/3600; 
+% the service time of the second station
 mu2 = 10;
 
 % the computation of B00
