@@ -2,7 +2,7 @@
 % The number of resources
 N = 6;
 % The arrival rates of order batches
-namuta = 64/3600; %每小时到达的订单
+namuta = 64/3600; 
 mu2 = 10;
 
 % the computation of B00
@@ -87,7 +87,6 @@ while norm(R2-R,'inf') > 0.01
     R2=-(A+R^2*C)/B;
 end
 R=R2;
-
 
 I = eye(N+1);
 F = inv(I - R);
