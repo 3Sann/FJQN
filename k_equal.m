@@ -1,6 +1,6 @@
 function Kequal = k_equal(k)
-    statusInFJ = nchoosek(4+k,4)*nchoosek(8+k,8) - nchoosek(4+k-1,4)*nchoosek(8+k-1,8);
-    M = 12;
+    statusInFJ = nchoosek(2+k,2)*nchoosek(2+k,2) - nchoosek(2+k-1,1)*nchoosek(2+k-1,2);
+    M = 4;
     statusAboutk = nchoosek(M - 1 + 1, M - 1);
     mindis = abs(statusInFJ - statusAboutk);
     Kequal = 1;
