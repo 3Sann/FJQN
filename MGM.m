@@ -1,6 +1,7 @@
 % The set of parameters
 % The number of resources
-K = 6;
+K=6;
+P=6;
 N=1;
 % The arrival rates of order batches
 lamda = 60/3600; 
@@ -23,7 +24,7 @@ for i = 0:N
         for j = 1:temp(1)
             if j == 1
                 kequal = k_equal(i-j+1,N);
-                u = AVMA(kequal);
+                u = AVMA(kequal,P);
                 B0(1,1) = -lamda - u;
                 B0(1,2) = u;
             elseif j == temp(1)
@@ -67,7 +68,7 @@ B = zeros(N+1,N+1);
 for i = 0:N
     if i <N
         kequal = k_equal(N-i,N);
-        u = AVMA(kequal);
+        u = AVMA(kequal,P);
     end
     if i == 0
         B(i+1,i+1) = - lamda - u;
