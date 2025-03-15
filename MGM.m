@@ -1,7 +1,9 @@
 % The set of parameters
-% The number of resources
+% The number of robots
 K=6;
+% The number of pickers
 P=6;
+% The number of zones
 N=1;
 % The arrival rates of order batches
 lamda = 60/3600; 
