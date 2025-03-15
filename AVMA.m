@@ -1,4 +1,4 @@
-function TH = AVMA(K,P)
+function TH = AVMA(K,P,T)
     % the number of servers in service station
     rs = [K,P];
     % the arriveal rate of service station
@@ -12,67 +12,62 @@ function TH = AVMA(K,P)
     
     % Initialize
     for i = 1:sta_inner
-        temp_p0 = 1;
-        temp_q0 = 0;
-        temp_l0 = 0;
-        temp_l0_piao = 0;
-        P0{i} = temp_p0;
-        Q0{i} = temp_q0;
-        L0{i} = temp_l0;
-        L0_piao{i} = temp_l0_piao;
+        P{i}{1}{1} = 1;
+        Q{i}{1} = 0;
+        L{i}{1} = 0;
+        L_piao{i}{1} = 0;
     end
-    Q{1} = Q0;
-    L{1} = L0;
-    P{1} = P0;
-    L_piao{1} = L0_piao;
 
     % Preprocessing
     for i = 1:sta_inner
         temp_ES = (rs(i) - 1) / (rs(i) + 1) * ES(i) / rs(i) + 2 / (rs(i) + 1) / rs(i) * ES2(i) / (2 * ES(i));
-        ES_rems{i} = temp_ES;
+        ES_rems(i) = temp_ES;
     end
-    index = 2;
     % Iteration 
-    for k = 1:K
+    for t = 1:T
         for i = 1:sta_inner
-            temp_ET = Q{index-1}{i} * ES_rems{i} + L_piao{index-1}{i} * ES(i) / rs(i) + ES(i);
-            ET{i} = temp_ET;
+            temp_ET = Q{i}{t}* ES_rems(i) + L_piao{i}{t} * ES(i) / rs(i) + ES(i);
+            ET(i) = temp_ET;
         end
-        TH = k / sum(vs .* cell2mat(ET));
+        TH = t / sum(vs .* ET);
         for i = 1:sta_inner
-            b_up = min(rs(i) - 1, k); 
-            P{index}{i}{1} = 0;
+            b_up = min(rs(i) - 1, t); %求b的上线
+            P{i}{t+1}{1} = 0;
             if b_up ~= 0                 
                  if b_up == 1
-                   P{index}{i}{2} = ES(i) / 1 * TH * P{1}{i};
+                   P{i}{t+1}{2} = ES(i) / 1 * vs(i) * TH * P{i}{1}{1};
                  else
                     for b = 1:b_up
-                        temp_B = ES(i) / b * TH * P{index-1}{i}{b};
-                        P{index}{i}{b+1} = temp_B;
+                        temp_B = ES(i) / b * vs(i) * TH * P{i}{t}{b};
+                        P{i}{t+1}{b+1} = temp_B;
                     end
                  end
             end
         end
         for i = 1:sta_inner
-            if k < rs(i)
-                Q{index}{i} = 0;
+            if t < rs(i) 
+                Q{i}{t+1} = 0;
             else
-                if k == 1
-                     Q{index}{i} = ES(i) / rs(i) * vs(i) * TH * (Q{index-1}{i} + P{index-1}{i});
+                if t == 1
+                    Q{i}{t+1} = ES(i) / rs(i) * vs(i) * TH * (Q{i}{t}+ P{i}{t}{1});
                 else
-                    Q{index}{i} = ES(i) / rs(i) * vs(i) * TH * (Q{index-1}{i} + P{index-1}{i}{rs(i)});
+                    Q{i}{t+1} = ES(i) / rs(i) * vs(i) * TH * (Q{i}{t} + P{i}{t}{rs(i)});
                 end
             end
-            P{index}{i}{1} = 1 - sum(cell2mat(P{index}{i})) - Q{index}{i};
+            pro = sum(cell2mat(P{i}{t+1})) + Q{i}{t+1};
+            if pro>1
+                P{i}{t+1}{1} = 0;
+            else
+                P{i}{t+1}{1} = 1 - sum(cell2mat(P{i}{t+1})) - Q{i}{t+1};
+            end
         end
         for i = 1:sta_inner
-            if k < rs(i)
-                L_piao{index}{i} = 0;
+            if t < rs(i)
+                L_piao{i}{t+1} = 0;
             else
-                L_piao{index}{i} = ES(i) / rs(i) * vs(i) * TH * (Q{index-1}{i} +L_piao{index-1}{i});
+                L_piao{i}{t+1} = ES(i) / rs(i) * vs(i) * TH * (Q{i}{t} + L_piao{i}{t});
             end
-            L{index}{i} = TH * vs(i) * ET{i};
+            L{i}{t+1} = TH * vs(i) * ET(i);
         end
-        index= index +1;
     end
 end
