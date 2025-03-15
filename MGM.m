@@ -13,7 +13,6 @@ for i = 0:N
         B00(1,2) = namuta;
     else
         C0 = zeros(i+1,i);
-%         temp = size(C0);
         for j = 1:i
             C0(j+1,j) = j/mu2;
         end
@@ -22,8 +21,7 @@ for i = 0:N
         for j = 1:temp(1)
             if j == 1
                 kequal = k_equal(i-j+1);
-%                 u = AVMA(kequal);
-                u = AVMA_MODEL3(kequal);
+                u = AVMA(kequal);
                 B0(1,1) = - namuta - u;
                 B0(1,2) = u;
             elseif j == temp(1)
@@ -84,7 +82,6 @@ end
 
 R=zeros(N+1,N+1);
 R2=-(A+R^2*C)/B;
-% while abs(det(R2)-det(R))>0.00000000000000001 
 while norm(R2-R,'inf') > 0.01
     R=R2;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
     R2=-(A+R^2*C)/B;
