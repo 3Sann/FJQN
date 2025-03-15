@@ -2,7 +2,7 @@
 % The number of resources
 N = 6;
 % The arrival rates of order batches
-namuta = 64/3600; 
+namuta = 60/3600; 
 mu2 = 10;
 
 % the computation of B00
