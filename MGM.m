@@ -1,6 +1,7 @@
 % The set of parameters
 % The number of resources
-N = 6;
+K = 6;
+N=1;
 % The arrival rates of order batches
 lamda = 60/3600; 
 % the service time of the second station
@@ -21,14 +22,14 @@ for i = 0:N
         temp = size(B0);
         for j = 1:temp(1)
             if j == 1
-                kequal = k_equal(i-j+1);
+                kequal = k_equal(i-j+1,N);
                 u = AVMA(kequal);
                 B0(1,1) = -lamda - u;
                 B0(1,2) = u;
             elseif j == temp(1)
                 B0(j,j) = -(j-1)/mu2 - lamda;
             else
-                kequal = k_equal(i-j+1);
+                kequal = k_equal(i-j+1,N);
                 u = AVMA(kequal);
                 B0(j,j) = -lamda - u - (j-1)/mu2;
                 B0(j,j+1) = u;
@@ -65,7 +66,7 @@ A = namuta*eye(N+1);
 B = zeros(N+1,N+1);
 for i = 0:N
     if i <N
-        kequal = k_equal(N-i);
+        kequal = k_equal(N-i,N);
         u = AVMA(kequal);
     end
     if i == 0
