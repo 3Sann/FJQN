@@ -2,15 +2,15 @@
 % The number of resources
 N = 6;
 % The arrival rates of order batches
-namuta = 60/3600; 
+lamda = 60/3600; 
 mu2 = 10;
 
 % the computation of B00
 B00 = zeros((N+1)*(N+2)/2,(N+1)*(N+2)/2);
 for i = 0:N
     if i == 0
-        B00(1,1) = -namuta;
-        B00(1,2) = namuta;
+        B00(1,1) = -lamda;
+        B00(1,2) = lamda;
     else
         C0 = zeros(i+1,i);
         for j = 1:i
@@ -22,19 +22,19 @@ for i = 0:N
             if j == 1
                 kequal = k_equal(i-j+1);
                 u = AVMA(kequal);
-                B0(1,1) = - namuta - u;
+                B0(1,1) = -lamda - u;
                 B0(1,2) = u;
             elseif j == temp(1)
-                B0(j,j) = -(j-1)/mu2 - namuta;
+                B0(j,j) = -(j-1)/mu2 - lamda;
             else
                 kequal = k_equal(i-j+1);
                 u = AVMA(kequal);
-                B0(j,j) = - namuta - u - (j-1)/mu2;
+                B0(j,j) = -lamda - u - (j-1)/mu2;
                 B0(j,j+1) = u;
             end
         end
         if i ~= N
-            A0 = namuta*eye(i+1);
+            A0 = lamda*eye(i+1);
             Z = [C0 B0 A0];
         else
             Z = [C0 B0];
@@ -47,7 +47,7 @@ end
 % The computation of B01
 B01 = zeros((N+1)*(N+2)/2,N+1);
 temp = size(B01);
-B01(temp(1)-N:temp(1),:)= namuta*eye(N+1);
+B01(temp(1)-N:temp(1),:)= lamda*eye(N+1);
 
 % The computation of B10
 B10 = zeros(N+1,(N+1)*(N+2)/2);
@@ -66,16 +66,15 @@ for i = 0:N
     if i <N
         kequal = k_equal(N-i);
         u = AVMA(kequal);
-        u = AVMA_MODEL3(kequal);
     end
     if i == 0
-        B(i+1,i+1) = - namuta - u;
+        B(i+1,i+1) = - lamda - u;
         B(i+1,i+2) = u;
     elseif i<N
-        B(i+1,i+1) = - namuta - u - i/mu2;
+        B(i+1,i+1) = - lamda - u - i/mu2;
         B(i+1,i+2) = u;
     else
-        B(i+1,i+1) = - namuta - i/mu2;
+        B(i+1,i+1) = - lamda - i/mu2;
     end
 end
 
@@ -119,7 +118,7 @@ for k=1:N
 end
 
 LDC=LDC+N*pi1*F*ones(N+1,1);
-W1 = Leq/namuta;
-W2 = LDC/namuta;
-T=(Leq+LDC)/namuta;
+W1 = Leq/lamda;
+W2 = LDC/lamda;
+T=(Leq+LDC)/lamda;
 pRo = LDC/N;
