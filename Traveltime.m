@@ -1,14 +1,14 @@
 % Parameters
 vp=0.75;vr=3;
-n=64;m=30;na=16;
-r=n/na;
+nb=64;m=30;na=16;
+r=nb/na;
 f=1;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 wl=1;
 wc=3;
 C1=(2*wl+wc)/f; 
 Cv=vr/vp;
 pTperItem = 3;
-pickTime = n*pTperItem;
+pickTime = nb*pTperItem;
 
 % The zeros array 
 prob = zeros(1,m);
