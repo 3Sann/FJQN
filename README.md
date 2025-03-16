@@ -5,3 +5,4 @@ This paper calculates the result of queuing network model by matlab.
 4. MVA: this file is used to calculate the fork-join queuing network in MP-to-MR.
 5. k_equal: this file is used to calculate the K robots in closed queuing network CQN2.
 6. Traveltime: this file is uesed to calculate the travel time.
+7. simulation_system: this file is used to smulate the collaborative modes.
